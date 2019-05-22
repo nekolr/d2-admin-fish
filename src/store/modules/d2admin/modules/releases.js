@@ -8,7 +8,7 @@ export default {
      * @param {Object} state vuex state
      */
     versionShow () {
-      util.log.capsule('D2Admin', `v${process.env.VUE_APP_VERSION}`)
+      util.log.capsule('D2Admin Fish', `v${process.env.VUE_APP_VERSION}`)
     }
   }
 }

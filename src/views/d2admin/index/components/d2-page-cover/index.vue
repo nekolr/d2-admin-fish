@@ -3,8 +3,8 @@
     <div class="d2-page-cover__logo">
       <slot/>
     </div>
-    <p class="d2-page-cover__title">D2 Admin {{$version}}</p>
-    <p class="d2-page-cover__sub-title">优雅的中后台集成方案</p>
+    <p class="d2-page-cover__title">D2 Admin Fish {{$version}}</p>
+    <p class="d2-page-cover__sub-title">优雅的中后台集成方案 Powered by D2Admin</p>
     <p class="d2-page-cover__build-time">FINAL BUILD TIME {{$buildTime}}</p>
     <slot name="footer"/>
   </div>

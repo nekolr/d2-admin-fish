@@ -92,7 +92,7 @@ export default {
         title: '日志详情',
         message: '完整的日志内容已经打印到控制台'
       })
-      this.$log.capsule('D2Admin', 'handleShowMore', 'primary')
+      this.$log.capsule('D2Admin Fish', 'handleShowMore', 'primary')
       console.group(log.message)
       console.log('time: ', log.time)
       console.log('type: ', log.type)

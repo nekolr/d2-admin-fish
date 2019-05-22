@@ -19,7 +19,7 @@ const frameIn = [
         meta: {
           auth: true
         },
-        component: _import('system/index')
+        component: _import('d2admin/index')
       },
       // 演示页面
       {
@@ -29,7 +29,7 @@ const frameIn = [
           title: '页面 1',
           auth: true
         },
-        component: _import('demo/page1')
+        component: _import('modules/page1')
       },
       {
         path: 'page2',
@@ -38,7 +38,7 @@ const frameIn = [
           title: '页面 2',
           auth: true
         },
-        component: _import('demo/page2')
+        component: _import('modules/page2')
       },
       {
         path: 'page3',
@@ -47,7 +47,7 @@ const frameIn = [
           title: '页面 3',
           auth: true
         },
-        component: _import('demo/page3')
+        component: _import('modules/page3')
       },
       // 系统 前端日志
       {
@@ -57,21 +57,21 @@ const frameIn = [
           title: '前端日志',
           auth: true
         },
-        component: _import('system/log')
+        component: _import('d2admin/log')
       },
       // 刷新页面 必须保留
       {
         path: 'refresh',
         name: 'refresh',
         hidden: true,
-        component: _import('system/function/refresh')
+        component: _import('d2admin/function/refresh')
       },
       // 页面重定向 必须保留
       {
         path: 'redirect/:route*',
         name: 'redirect',
         hidden: true,
-        component: _import('system/function/redirect')
+        component: _import('d2admin/function/redirect')
       }
     ]
   }
@@ -85,7 +85,7 @@ const frameOut = [
   {
     path: '/login',
     name: 'login',
-    component: _import('system/login')
+    component: _import('d2admin/login')
   }
 ]
 
@@ -96,7 +96,7 @@ const errorPage = [
   {
     path: '*',
     name: '404',
-    component: _import('system/error/404')
+    component: _import('d2admin/error/404')
   }
 ]
 
