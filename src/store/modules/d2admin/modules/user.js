@@ -4,7 +4,7 @@ export default {
     // 用户信息
     info: {}
   },
-  actions: {
+  mutations: {
     /**
      * @description 设置用户数据
      * @param {Object} state vuex state

@@ -13,8 +13,7 @@ export default {
     login ({ commit, dispatch }, response) {
       return new Promise(async resolve => {
         util.cookies.set('token', response.token)
-        // 持久化用户信息
-        await dispatch('d2admin/user/set', response.user, { root: true })
+        util.cookies.set('username', response.user.username)
         // 用户登录后从持久化数据加载一系列的设置
         await dispatch('load')
         // 结束
@@ -33,8 +32,9 @@ export default {
       async function logout () {
         // 删除cookie
         util.cookies.remove('token')
+        util.cookies.remove('username')
         // 清空 vuex 用户信息
-        await dispatch('d2admin/user/set', {}, { root: true })
+        commit('d2admin/user/set', {}, { root: true })
         // 跳转路由
         router.push({
           name: 'login'

@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { userService } from '@/api/user.service'
 import d2MenuSide from './components/menu-side'
 import d2MenuHeader from './components/menu-header'
 import d2Tabs from './components/tabs'
@@ -90,8 +91,9 @@ import d2HeaderSize from './components/header-size'
 import d2HeaderTheme from './components/header-theme'
 import d2HeaderUser from './components/header-user'
 import d2HeaderLog from './components/header-log'
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import mixinSearch from './mixins/search'
+import util from '@/libs/util.js'
 export default {
   name: 'd2-layout-header-aside',
   mixins: [
@@ -113,8 +115,12 @@ export default {
       // [侧边栏宽度] 正常状态
       asideWidth: '200px',
       // [侧边栏宽度] 折叠状态
-      asideWidthCollapse: '65px'
+      asideWidthCollapse: '65px',
+      username: util.cookies.get('username')
     }
+  },
+  created () {
+    this.getUserInfo()
   },
   computed: {
     ...mapState('d2admin', {
@@ -141,11 +147,22 @@ export default {
     ...mapActions('d2admin/menu', [
       'asideCollapseToggle'
     ]),
+    ...mapMutations('d2admin/user', {
+      userInfoSet: 'set'
+    }),
     /**
      * 接收点击切换侧边栏的按钮
      */
     handleToggleAside () {
       this.asideCollapseToggle()
+    },
+    getUserInfo () {
+      return userService
+        .getUserInfo(this.username)
+        .then(res => {
+          this.userInfoSet(res)
+        })
+        .catch(() => {})
     }
   }
 }

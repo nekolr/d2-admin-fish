@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
 
+const TOKEN_PREFIX = 'Bearer '
+
 // 创建一个错误
 function errorCreate (msg) {
   const error = new Error(msg)
@@ -44,8 +46,8 @@ service.interceptors.request.use(
   config => {
     // 在请求发送之前做一些处理
     const token = util.cookies.get('token')
-    // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['X-Token'] = token
+    // 让每个请求携带 token-- ['Authorization'] 为自定义 key 请根据实际情况自行修改
+    config.headers['Authorization'] = TOKEN_PREFIX + token
     return config
   },
   error => {
