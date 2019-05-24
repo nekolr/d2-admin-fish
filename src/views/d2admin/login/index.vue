@@ -43,7 +43,7 @@
                     </template>
                   </el-input>
                 </el-form-item> -->
-                <el-button size="default" @click="submit" type="primary" class="button-login">登录</el-button>
+                <el-button size="default" @click="submit" :loading="loading" type="primary" class="button-login">登录</el-button>
               </el-form>
             </el-card>
             <p
@@ -63,7 +63,6 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
-import { debounce } from 'lodash'
 import { accountService } from '@/api/account.service'
 export default {
   data () {
@@ -75,6 +74,7 @@ export default {
         username: 'admin',
         password: 'admin'
       },
+      loading: false,
       // 校验
       rules: {
         username: [
@@ -108,17 +108,25 @@ export default {
      * @description 提交表单
      */
     // 提交登录信息
-    submit: debounce(function () {
+    submit () {
+      // 打开 loading
+      this.loading = true
       this.$refs.loginForm.validate((valid) => {
         if (!valid) return
         accountService.login(this.formLogin)
           .then(async res => {
+            // 关闭 loading
+            this.loading = false
             await this.login(res)
             // 重定向对象不存在则返回顶层路径
             this.$router.replace(this.$route.query.redirect || '/')
           })
+          .catch(() => {
+            // 关闭 loading
+            this.loading = false
+          })
       })
-    }, 1000, { 'leading': true, 'trailing': false })
+    }
   }
 }
 </script>

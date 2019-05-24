@@ -1,4 +1,4 @@
-import { Message, MessageBox } from 'element-ui'
+import { MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
 
@@ -44,8 +44,8 @@ export default {
       if (confirm) {
         commit('d2admin/gray/set', true, { root: true })
         MessageBox.confirm('注销当前账户吗?  打开的标签页和用户设置将会被保存。', '确认操作', {
-          confirmButtonText: '确定注销',
-          cancelButtonText: '放弃',
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
           type: 'warning'
         })
           .then(() => {
@@ -54,9 +54,6 @@ export default {
           })
           .catch(() => {
             commit('d2admin/gray/set', false, { root: true })
-            Message({
-              message: '放弃注销用户'
-            })
           })
       } else {
         logout()
