@@ -56,11 +56,11 @@ export default {
     },
     // 监听路由 控制侧边栏激活状态
     '$route': {
-      handler ({ fullPath }) {
-        this.active = fullPath
+      handler ({ name }) {
+        this.active = name
         this.$nextTick(() => {
           if (this.aside.length > 0 && this.$refs.menu) {
-            this.$refs.menu.activeIndex = fullPath
+            this.$refs.menu.activeIndex = name
           }
         })
       },

@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 
 const cookies = {}
+// cookies 过期时间为半小时
+const expiresHours = 0.5
 
 /**
  * @description 存储 cookie 值
@@ -10,7 +12,7 @@ const cookies = {}
  */
 cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
   let currentCookieSetting = {
-    expires: 1
+    expires: new Date(new Date().getTime() + expiresHours * 60 * 60 * 1000)
   }
   Object.assign(currentCookieSetting, cookieSetting)
   Cookies.set(`d2admin-fish-${process.env.VUE_APP_VERSION}-${name}`, value, currentCookieSetting)

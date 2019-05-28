@@ -93,7 +93,6 @@ import d2HeaderUser from './components/header-user'
 import d2HeaderLog from './components/header-log'
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import mixinSearch from './mixins/search'
-import util from '@/libs/util.js'
 export default {
   name: 'd2-layout-header-aside',
   mixins: [
@@ -112,15 +111,13 @@ export default {
   },
   data () {
     return {
+      // 加载状态
+      loading: true,
       // [侧边栏宽度] 正常状态
       asideWidth: '200px',
       // [侧边栏宽度] 折叠状态
-      asideWidthCollapse: '65px',
-      username: util.cookies.get('username')
+      asideWidthCollapse: '65px'
     }
-  },
-  created () {
-    this.getUserInfo()
   },
   computed: {
     ...mapState('d2admin', {
@@ -143,6 +140,13 @@ export default {
       }
     }
   },
+  created () {
+    Promise.all([
+      this.getUserInfo()
+    ]).then(() => {
+      this.loading = false
+    })
+  },
   methods: {
     ...mapActions('d2admin/menu', [
       'asideCollapseToggle'
@@ -158,7 +162,7 @@ export default {
     },
     getUserInfo () {
       return userService
-        .getUserInfo(this.username)
+        .getCurrentUserInfo()
         .then(res => {
           this.userInfoSet(res)
         })
