@@ -27,7 +27,6 @@ router.beforeEach((to, from, next) => {
   NProgress.start()
   // 关闭搜索面板
   store.commit('d2admin/search/set', false)
-
   // 已添加或者当前路由为页面路由, 可直接访问
   if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || currentRouteIsPageRoute(to, pageRoutes)) {
     return next()
@@ -131,7 +130,8 @@ function dynamicAddMenuRoutes (menuList = [], routes = []) {
         }
       }
     } else {
-      route['path'] = route['name'] = URL
+      URL = URL.replace(/^\//, '').replace(/_/g, '-')
+      route['path'] = route['name'] = URL.replace(/\//g, '-')
       route['component'] = () => import(`@/views/modules/${URL}`)
     }
     routes.push(route)

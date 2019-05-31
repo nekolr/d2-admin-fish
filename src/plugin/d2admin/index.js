@@ -12,12 +12,16 @@ import '@/assets/svg-icons'
 import pluginError from '@/plugin/error'
 import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
+import { hasPermission, hasAnyPermission } from '@/libs/security'
 
 export default {
   async install (Vue, options) {
     // 设置为 false 以阻止 vue 在启动时生成生产提示
     // https://cn.vuejs.org/v2/api/#productionTip
     Vue.config.productionTip = false
+    // Security 挂载全局
+    Vue.prototype.$hasPermission = hasPermission
+    Vue.prototype.$hasAnyPermission = hasAnyPermission
     // 当前环境
     Vue.prototype.$env = process.env.NODE_ENV
     // 当前的 baseUrl

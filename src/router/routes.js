@@ -35,6 +35,15 @@ export const pageRoutes = [
     meta: {
       title: '404 未找到'
     }
+  },
+  {
+    path: '/refresh',
+    name: 'refresh',
+    hidden: true,
+    component: () => import('@/views/d2admin/function/refresh'),
+    meta: {
+      title: '刷新页面'
+    }
   }
 ]
 

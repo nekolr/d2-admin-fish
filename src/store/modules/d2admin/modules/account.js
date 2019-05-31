@@ -69,6 +69,8 @@ export default {
         await dispatch('d2admin/transition/load', null, { root: true })
         // DB -> store 持久化数据加载侧边栏折叠状态
         await dispatch('d2admin/menu/asideCollapseLoad', null, { root: true })
+        // DB -> store 持久化数据加载全局尺寸
+        await dispatch('d2admin/size/load', null, { root: true })
         // end
         resolve()
       })
