@@ -112,7 +112,10 @@ export default {
       // 打开 loading
       this.loading = true
       this.$refs.loginForm.validate((valid) => {
-        if (!valid) return
+        if (!valid) {
+          this.loading = false
+          return
+        }
         accountService.login(this.formLogin)
           .then(async res => {
             // 关闭 loading

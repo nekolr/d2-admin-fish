@@ -4,7 +4,7 @@
       <el-form-item prop="username" :label="$t('user.username')">
         <el-input v-model="dataForm.username" :placeholder="$t('user.username')"/>
       </el-form-item>
-      <el-form-item prop="deptName" :label="$t('user.deptName')" class="dept-list">
+      <el-form-item prop="department.name" :label="$t('user.deptName')" class="dept-list">
         <el-popover v-model="deptListVisible" ref="deptListPopover" placement="bottom-start" trigger="click">
           <el-tree
             :data="deptList"
@@ -17,7 +17,7 @@
             @current-change="deptListTreeCurrentChangeHandle">
           </el-tree>
         </el-popover>
-        <el-input v-model="dataForm.deptName" v-popover:deptListPopover :readonly="true" :placeholder="$t('user.deptName')"/>
+        <el-input v-model="dataForm.department.name" v-popover:deptListPopover :readonly="true" :placeholder="$t('user.deptName')"/>
       </el-form-item>
       <el-form-item prop="password" :label="$t('user.password')" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.password" type="password" :placeholder="$t('user.password')"/>
@@ -38,18 +38,18 @@
       <el-form-item prop="email" :label="$t('user.email')">
         <el-input v-model="dataForm.email" :placeholder="$t('user.email')"/>
       </el-form-item>
-      <el-form-item prop="mobile" :label="$t('user.mobile')">
-        <el-input v-model="dataForm.mobile" :placeholder="$t('user.mobile')"/>
+      <el-form-item prop="phone" :label="$t('user.phone')">
+        <el-input v-model="dataForm.phone" :placeholder="$t('user.phone')"/>
       </el-form-item>
       <el-form-item prop="roleIdList" :label="$t('user.roleIdList')" class="role-list">
         <el-select v-model="dataForm.roleIdList" multiple :placeholder="$t('user.roleIdList')">
           <el-option v-for="role in roleList" :key="role.id" :label="role.name" :value="role.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item prop="status" :label="$t('user.status')" size="mini">
-        <el-radio-group v-model="dataForm.status">
-          <el-radio :label="0">{{ $t('user.status0') }}</el-radio>
-          <el-radio :label="1">{{ $t('user.status1') }}</el-radio>
+      <el-form-item prop="enabled" :label="$t('user.status')" size="mini">
+        <el-radio-group v-model="dataForm.enabled">
+          <el-radio :label="false">{{ $t('user.status0') }}</el-radio>
+          <el-radio :label="true">{{ $t('user.status1') }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -74,16 +74,17 @@ export default {
       dataForm: {
         id: '',
         username: '',
-        deptId: '0',
-        deptName: '',
+        age: 0,
+        department: {},
+        job: {},
         password: '',
         comfirmPassword: '',
         realName: '',
-        gender: 0,
+        gender: 'male',
         email: '',
-        mobile: '',
-        roleIdList: [],
-        status: 1
+        phone: '',
+        roles: [],
+        enabled: true
       }
     }
   },
@@ -173,7 +174,7 @@ export default {
     },
     // 获取信息
     getInfo () {
-      this.$axios.get(`/sys/user/${this.dataForm.id}`).then(res => {
+      this.$axios.get(`/api/users/${this.dataForm.id}`).then(res => {
         this.dataForm = {
           ...this.dataForm,
           ...res,

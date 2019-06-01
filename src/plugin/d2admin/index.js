@@ -7,18 +7,22 @@ import 'flex.css'
 import '@/components'
 // svg 图标
 import '@/assets/svg-icons'
-
 // 功能插件
-import pluginError from '@/plugin/error'
-import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
+// axios
+import axios from '@/plugin/axios'
+// 权限控制
 import { hasPermission, hasAnyPermission } from '@/libs/security'
+// i18n
+import i18n, { messages } from '@/i18n'
 
 export default {
   async install (Vue, options) {
     // 设置为 false 以阻止 vue 在启动时生成生产提示
     // https://cn.vuejs.org/v2/api/#productionTip
     Vue.config.productionTip = false
+    // axios 挂载全局
+    Vue.prototype.$axios = axios
     // Security 挂载全局
     Vue.prototype.$hasPermission = hasPermission
     Vue.prototype.$hasAnyPermission = hasAnyPermission
@@ -30,11 +34,16 @@ export default {
     Vue.prototype.$version = process.env.VUE_APP_VERSION
     // 构建时间
     Vue.prototype.$buildTime = process.env.VUE_APP_BUILD_TIME
+    // 多国语选项
+    Vue.prototype.$languages = Object.keys(messages).map(langlage => ({
+      label: messages[langlage]._lang,
+      value: langlage
+    }))
     // Element
-    Vue.use(ElementUI)
+    Vue.use(ElementUI, {
+      i18n: (key, value) => i18n.t(key, value)
+    })
     // 插件
-    Vue.use(pluginError)
-    Vue.use(pluginLog)
     Vue.use(pluginOpen)
   }
 }

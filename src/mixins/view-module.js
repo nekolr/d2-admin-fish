@@ -49,14 +49,14 @@ export default {
             order: this.order,
             orderField: this.orderField,
             page: this.mixinViewModuleOptions.getDataListIsPage ? this.page : null,
-            limit: this.mixinViewModuleOptions.getDataListIsPage ? this.limit : null,
+            size: this.mixinViewModuleOptions.getDataListIsPage ? this.limit : null,
             ...this.dataForm
           }
         }
       ).then(res => {
         this.dataListLoading = false
-        this.dataList = this.mixinViewModuleOptions.getDataListIsPage ? res.list : res
-        this.total = this.mixinViewModuleOptions.getDataListIsPage ? res.total : 0
+        this.dataList = this.mixinViewModuleOptions.getDataListIsPage ? res.data : res
+        this.total = this.mixinViewModuleOptions.getDataListIsPage ? res.totalSize : 0
       }).catch(() => {
         this.dataList = []
         this.total = 0

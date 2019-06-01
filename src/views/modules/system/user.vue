@@ -27,16 +27,16 @@
       style="width: 100%;">
       <el-table-column type="selection" header-align="center" align="center" width="50"/>
       <el-table-column prop="username" :label="$t('user.username')" sortable="custom" header-align="center" align="center"/>
-      <el-table-column prop="deptName" :label="$t('user.deptName')" header-align="center" align="center"/>
+      <el-table-column prop="department.name" :label="$t('user.deptName')" header-align="center" align="center"/>
       <el-table-column prop="email" :label="$t('user.email')" header-align="center" align="center"/>
-      <el-table-column prop="mobile" :label="$t('user.mobile')" sortable="custom" header-align="center" align="center"/>
-      <el-table-column prop="status" :label="$t('user.status')" sortable="custom" header-align="center" align="center">
+      <el-table-column prop="phone" :label="$t('user.phone')" sortable="custom" header-align="center" align="center"/>
+      <el-table-column prop="enabled" :label="$t('user.status')" sortable="custom" header-align="center" align="center">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === 0" size="mini" type="danger">{{ $t('user.status0') }}</el-tag>
+          <el-tag v-if="!scope.row.enabled" size="mini" type="danger">{{ $t('user.status0') }}</el-tag>
           <el-tag v-else size="mini" type="success">{{ $t('user.status1') }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" :label="$t('user.createDate')" sortable="custom" header-align="center" align="center" width="180"/>
+      <el-table-column prop="createTime" :formatter="timeFormatter" :label="$t('user.createTime')" sortable="custom" header-align="center" align="center" width="180"/>
       <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
         <template slot-scope="scope">
           <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_PUT')" type="text" size="mini" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
@@ -63,6 +63,8 @@
 <script>
 import mixinViewModule from '@/mixins/view-module'
 import AddOrUpdate from './user-add-or-update'
+import dayjs from 'dayjs'
+
 export default {
   mixins: [ mixinViewModule ],
   data () {
@@ -81,6 +83,15 @@ export default {
   },
   components: {
     AddOrUpdate
+  },
+  methods: {
+    // 时间格式化
+    timeFormatter (row, column) {
+      var time = row[column.property]
+      if (time) {
+        return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+      }
+    }
   }
 }
 </script>

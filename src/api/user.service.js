@@ -1,7 +1,7 @@
 import request from '@/plugin/axios'
 
 const GET_USERINFO_URI_PREFIX = '/api/users/'
-const GET_CURRENT_USERINFO_URI = '/api/user'
+const GET_CURRENT_USERINFO_URI = '/api/currentUser'
 
 export const userService = {
   // 获取用户信息
