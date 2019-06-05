@@ -7,12 +7,12 @@ export default {
       // 设置属性
       mixinViewModuleOptions: {
         activatedIsNeed: true,    // 此页面是否在激活（进入）时，调用查询数据列表接口？
-        getDataListURL: '',       // 数据列表接口，API地址
+        getDataListURL: '',       // 数据列表接口，API 地址
         getDataListIsPage: false, // 数据列表接口，是否需要分页？
-        deleteURL: '',            // 删除接口，API地址
+        deleteURL: '',            // 删除接口，API 地址
         deleteIsBatch: false,     // 删除接口，是否需要批量？
         deleteIsBatchKey: 'id',   // 删除接口，批量状态下由那个key进行标记操作？比如：pid，uid...
-        exportURL: ''             // 导出接口，API地址
+        exportURL: ''             // 导出接口，API 地址
       },
       // 默认属性
       dataForm: {},               // 查询条件
@@ -22,9 +22,9 @@ export default {
       page: 1,                    // 当前页码
       limit: 10,                  // 每页数
       total: 0,                   // 总条数
-      dataListLoading: false,     // 数据列表，loading状态
+      dataListLoading: false,     // 数据列表，loading 状态
       dataListSelections: [],     // 数据列表，多选项
-      addOrUpdateVisible: false   // 新增／更新，弹窗visible状态
+      addOrUpdateVisible: false   // 新增／更新，弹窗 visible 状态
     }
     /* eslint-enable */
   },
@@ -75,7 +75,8 @@ export default {
         return false
       }
       this.order = data.order.replace(/ending$/, '')
-      this.orderField = data.prop.replace(/([A-Z])/g, '_$1').toLowerCase()
+      // this.orderField = data.prop.replace(/([A-Z])/g, '_$1').toLowerCase()
+      this.orderField = data.prop
       this.getDataList()
     },
     // 分页, 每页条数
@@ -97,9 +98,9 @@ export default {
         this.$refs.addOrUpdate.init()
       })
     },
-    // 删除
-    deleteHandle (id) {
-      if (this.mixinViewModuleOptions.deleteIsBatch && !id && this.dataListSelections.length <= 0) {
+    // 批量删除
+    batchDeleteHandle () {
+      if (this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length <= 0) {
         return this.$message({
           message: this.$t('prompt.deleteBatch'),
           type: 'warning',
@@ -112,10 +113,31 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios.delete(
-          `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch ? '' : '/' + id}`,
-          this.mixinViewModuleOptions.deleteIsBatch ? {
-            'data': id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])
+          `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1 ? '' : '/' + this.dataListSelections[0][this.mixinViewModuleOptions.deleteIsBatchKey]}`,
+          this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1 ? {
+            'data': this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])
           } : {}
+        ).then(res => {
+          this.$message({
+            message: this.$t('prompt.success'),
+            type: 'success',
+            duration: 500,
+            onClose: () => {
+              this.getDataList()
+            }
+          })
+        }).catch(() => {})
+      }).catch(() => {})
+    },
+    // 删除
+    deleteHandle (id) {
+      this.$confirm(this.$t('prompt.info', { 'handle': this.$t('delete') }), this.$t('prompt.title'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.$axios.delete(
+          `${this.mixinViewModuleOptions.deleteURL}${'/' + id}`
         ).then(res => {
           this.$message({
             message: this.$t('prompt.success'),

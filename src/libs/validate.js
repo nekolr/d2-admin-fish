@@ -23,9 +23,17 @@ export function isPhone (s) {
 }
 
 /**
- * URL地址
+ * URL 地址
  * @param {*} s
  */
 export function isURL (s) {
   return /^http[s]?:\/\/.*/.test(s)
+}
+
+/**
+ * 年龄
+ * @param {*} s
+ */
+export function isAge (s) {
+  return /^(?:[1-9][0-9]?|1[01][0-9]|120)$/.test(s)
 }

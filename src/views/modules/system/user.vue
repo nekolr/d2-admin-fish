@@ -11,7 +11,7 @@
         <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_ADD')" type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_DELETE')" type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
+        <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_DELETE')" type="danger" @click="batchDeleteHandle()">{{ $t('deleteBatch') }}</el-button>
       </el-form-item>
       <el-form-item>
         <el-button v-if="$hasAnyPermission('USER_ALL')" type="info" @click="exportHandle()">{{ $t('export') }}</el-button>
@@ -37,7 +37,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" :formatter="timeFormatter" :label="$t('user.createTime')" sortable="custom" header-align="center" align="center" width="180"/>
-      <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
+      <el-table-column v-if="$hasAnyPermission('USER_ALL', 'USER_PUT', 'USER_DELETE')" :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
         <template slot-scope="scope">
           <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_PUT')" type="text" size="mini" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
           <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_DELETE')" type="text" size="mini" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
