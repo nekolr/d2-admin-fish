@@ -96,7 +96,6 @@ t.notFound.home = '首页'
 
 t.login = {}
 t.login.language = '语言'
-t.login.motto = '时间是一切财富中最宝贵的财富'
 t.login.form = {}
 t.login.form.placeholderUsername = '用户名'
 t.login.form.placeholderPassword = '密码'
@@ -108,39 +107,10 @@ t.login.footer = {}
 t.login.footer.buttonHelp = '帮助'
 t.login.footer.buttonPrivacy = '隐私'
 t.login.footer.buttonClause = '条款'
-t.login.copyright = {}
-t.login.copyright.p1 = 'Copyright'
-t.login.copyright.p2 = '2018 D2 Projects 开源组织出品'
-t.login.copyright.p3 = '@FairyEver'
 t.login.ruleMessage = {}
 t.login.ruleMessage.username = '请输入用户名'
 t.login.ruleMessage.password = '请输入密码'
 t.login.ruleMessage.captcha = '请输入验证码'
-
-t.home = {}
-t.home.sysInfo = {}
-t.home.sysInfo.name = '系统名称'
-t.home.sysInfo.nameVal = 'renren-security【企业版】'
-t.home.sysInfo.version = '版本信息'
-t.home.sysInfo.versionVal = process.env.VUE_APP_VERSION
-t.home.sysInfo.osName = '操作系统'
-t.home.sysInfo.osVersion = '系统版本'
-t.home.sysInfo.osArch = '系统架构'
-t.home.sysInfo.processors = 'CPU核数'
-t.home.sysInfo.totalPhysical = '系统内存'
-t.home.sysInfo.freePhysical = '剩余内存'
-t.home.sysInfo.memoryRate = '内存使用'
-t.home.sysInfo.userLanguage = '系统语言'
-t.home.sysInfo.jvmName = 'JVM信息'
-t.home.sysInfo.javaVersion = 'JVM版本'
-t.home.sysInfo.javaHome = 'JAVA_HOME'
-t.home.sysInfo.userDir = '工作目录'
-t.home.sysInfo.javaTotalMemory = 'JVM占用内存'
-t.home.sysInfo.javaFreeMemory = 'JVM空闲内存'
-t.home.sysInfo.javaMaxMemory = 'JVM最大内存'
-t.home.sysInfo.userName = '当前用户'
-t.home.sysInfo.systemCpuLoad = 'CPU负载'
-t.home.sysInfo.userTimezone = '系统时区'
 
 /* 模块 */
 t.model = {}
@@ -245,5 +215,9 @@ t.user.gender2 = '保密'
 t.user.roleIdList = '角色配置'
 t.user.validate = {}
 t.user.validate.comfirmPassword = '确认密码与密码输入不一致'
+
+t.permission = {}
+t.permission.name = '权限名称'
+t.permission.description = '权限描述'
 
 export default t

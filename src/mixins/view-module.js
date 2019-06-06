@@ -1,5 +1,3 @@
-import util from '@/libs/util'
-import qs from 'qs'
 export default {
   data () {
     /* eslint-disable */
@@ -11,8 +9,7 @@ export default {
         getDataListIsPage: false, // 数据列表接口，是否需要分页？
         deleteURL: '',            // 删除接口，API 地址
         deleteIsBatch: false,     // 删除接口，是否需要批量？
-        deleteIsBatchKey: 'id',   // 删除接口，批量状态下由那个key进行标记操作？比如：pid，uid...
-        exportURL: ''             // 导出接口，API 地址
+        deleteIsBatchKey: 'id'    // 删除接口，批量状态下由那个key进行标记操作？比如：pid，uid...
       },
       // 默认属性
       dataForm: {},               // 查询条件
@@ -112,11 +109,15 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
+        var params = []
+        if (this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1) {
+          for (var i = 0; i < this.dataListSelections.length; i++) {
+            params.push(this.dataListSelections[i][this.mixinViewModuleOptions.deleteIsBatchKey])
+          }
+        }
+
         this.$axios.delete(
-          `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1 ? '' : '/' + this.dataListSelections[0][this.mixinViewModuleOptions.deleteIsBatchKey]}`,
-          this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1 ? {
-            'data': this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])
-          } : {}
+          `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch && this.dataListSelections.length > 1 ? '?ids=' + params : '/' + this.dataListSelections[0][this.mixinViewModuleOptions.deleteIsBatchKey]}`
         ).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
@@ -149,14 +150,6 @@ export default {
           })
         }).catch(() => {})
       }).catch(() => {})
-    },
-    // 导出
-    exportHandle () {
-      var params = qs.stringify({
-        'token': util.cookies.set('token'),
-        ...this.dataForm
-      })
-      window.location.href = `${window.SITE_CONFIG['apiURL']}${this.mixinViewModuleOptions.exportURL}?${params}`
     }
   }
 }

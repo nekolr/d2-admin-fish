@@ -108,39 +108,10 @@ t.login.footer = {}
 t.login.footer.buttonHelp = 'Help'
 t.login.footer.buttonPrivacy = 'Privacy'
 t.login.footer.buttonClause = 'Clause'
-t.login.copyright = {}
-t.login.copyright.p1 = 'Copyright'
-t.login.copyright.p2 = '2018 D2 Projects Open Source Organizational'
-t.login.copyright.p3 = '@FairyEver'
 t.login.ruleMessage = {}
 t.login.ruleMessage.username = 'User name must be entered'
 t.login.ruleMessage.password = 'Password must be entered'
 t.login.ruleMessage.captcha = 'Captcha must be entered'
-
-t.home = {}
-t.home.sysInfo = {}
-t.home.sysInfo.name = 'System Name'
-t.home.sysInfo.nameVal = 'renren-security [Enterprise]'
-t.home.sysInfo.version = 'Version Information'
-t.home.sysInfo.versionVal = process.env.VUE_APP_VERSION
-t.home.sysInfo.osName = 'Operating System'
-t.home.sysInfo.osVersion = 'System Version'
-t.home.sysInfo.osArch = 'System Architecture'
-t.home.sysInfo.processors = 'CPU Core Count'
-t.home.sysInfo.totalPhysical = 'system Memory'
-t.home.sysInfo.freePhysical = 'Remaining Memory'
-t.home.sysInfo.memoryRate = 'Memory Usage'
-t.home.sysInfo.userLanguage = 'System Language'
-t.home.sysInfo.jvmName = 'JVM Information'
-t.home.sysInfo.javaVersion = 'JVM Version'
-t.home.sysInfo.javaHome = 'JAVA_HOME'
-t.home.sysInfo.userDir = 'Working Directory'
-t.home.sysInfo.javaTotalMemory = 'JVM Occupies Memory'
-t.home.sysInfo.javaFreeMemory = 'JVM Free Memory'
-t.home.sysInfo.javaMaxMemory = 'JVM Max Memory'
-t.home.sysInfo.userName = 'Current User'
-t.home.sysInfo.systemCpuLoad = 'CPU Load'
-t.home.sysInfo.userTimezone = 'System Time Zone'
 
 /* modules */
 t.model = {}
@@ -245,5 +216,9 @@ t.user.gender2 = 'Secure'
 t.user.roleIdList = 'Role Config'
 t.user.validate = {}
 t.user.validate.comfirmPassword = 'Confirm password is not consistent with password input'
+
+t.permission = {}
+t.permission.name = 'Permission Name'
+t.permission.description = 'Permission Description'
 
 export default t

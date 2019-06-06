@@ -13,9 +13,6 @@
       <el-form-item>
         <el-button v-if="$hasAnyPermission('USER_ALL', 'USER_DELETE')" type="danger" @click="batchDeleteHandle()">{{ $t('deleteBatch') }}</el-button>
       </el-form-item>
-      <el-form-item>
-        <el-button v-if="$hasAnyPermission('USER_ALL')" type="info" @click="exportHandle()">{{ $t('export') }}</el-button>
-      </el-form-item>
     </el-form>
     <el-table
       size="mini"
@@ -73,8 +70,7 @@ export default {
         getDataListURL: '/api/users',
         getDataListIsPage: true,
         deleteURL: '/api/users',
-        deleteIsBatch: true,
-        exportURL: '/api/users'
+        deleteIsBatch: true
       },
       dataForm: {
         username: ''
