@@ -220,5 +220,7 @@ t.user.validate.comfirmPassword = 'Confirm password is not consistent with passw
 t.permission = {}
 t.permission.name = 'Permission Name'
 t.permission.description = 'Permission Description'
+t.permission.createTime = 'Create Time'
+t.permission.type = 'Permission Type'
 
 export default t

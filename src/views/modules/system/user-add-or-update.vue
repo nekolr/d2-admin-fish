@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
       <el-form-item prop="username" :label="$t('user.username')">
-        <el-input v-model="dataForm.username" :placeholder="$t('user.username')"/>
+        <el-input :disabled="isAdmin(dataForm.id)" v-model="dataForm.username" :placeholder="$t('user.username')"/>
       </el-form-item>
       <el-form-item prop="deptName" :label="$t('user.deptName')" class="dept-list">
         <el-popover v-model="deptListVisible" ref="deptListPopover" placement="bottom-start" trigger="click">
@@ -50,12 +50,12 @@
         <el-input v-model="dataForm.phone" :placeholder="$t('user.phone')"/>
       </el-form-item>
       <el-form-item prop="roleSelectedList" :label="$t('user.roleIdList')" class="role-list">
-        <el-select v-model="dataForm.roleSelectedList" @change="roleListChangeHandle" multiple :placeholder="$t('user.roleIdList')">
+        <el-select :disabled="isAdmin(dataForm.id)" v-model="dataForm.roleSelectedList" @change="roleListChangeHandle" multiple :placeholder="$t('user.roleIdList')">
           <el-option v-for="role in roleList" :key="role.id" :label="role.name" :value="role.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item prop="enabled" :label="$t('user.status')" size="mini">
-        <el-radio-group v-model="dataForm.enabled">
+      <el-form-item prop="enabled"  :label="$t('user.status')" size="mini">
+        <el-radio-group :disabled="isAdmin(dataForm.id)" v-model="dataForm.enabled">
           <el-radio :label="false">{{ $t('user.status0') }}</el-radio>
           <el-radio :label="true">{{ $t('user.status1') }}</el-radio>
         </el-radio-group>
@@ -282,6 +282,12 @@ export default {
       // 将选中项的值赋给 jobName（其实是 id 值）
       this.dataForm.jobName = selected
       this.dataForm.job = { id: selected }
+    },
+    // 判断是否是超级管理员
+    isAdmin () {
+      if (this.dataForm.id === 1) {
+        return true
+      }
     }
   }
 }

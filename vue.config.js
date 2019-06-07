@@ -1,5 +1,4 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const VueFilenameInjector = require('./tools/vue-filename-injector')
 
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
@@ -45,12 +44,6 @@ module.exports = {
         // sourcemap 不包含列信息
         config => config.devtool('cheap-source-map')
       )
-      // TRAVIS 构建 vue-loader 添加 filename
-      .when(process.env.VUE_APP_BUILD_MODE === 'TRAVIS' || process.env.NODE_ENV === 'development',
-        VueFilenameInjector(config, {
-          propName: process.env.VUE_APP_SOURCE_VIEWER_PROP_NAME
-        })
-      )
       // 非开发环境
       .when(process.env.NODE_ENV !== 'development', config => {
         config.optimization
@@ -68,13 +61,6 @@ module.exports = {
             })
           ])
       })
-    // i18n
-    config.module
-      .rule('i18n')
-      .resourceQuery(/blockType=i18n/)
-      .use('i18n')
-      .loader('@kazupon/vue-i18n-loader')
-      .end()
     // svg
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()

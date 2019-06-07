@@ -10,4 +10,4 @@ branches:
   - master
 
 script:
-  - npm run build:travis
+  - npm run build

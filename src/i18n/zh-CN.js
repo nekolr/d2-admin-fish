@@ -219,5 +219,7 @@ t.user.validate.comfirmPassword = '确认密码与密码输入不一致'
 t.permission = {}
 t.permission.name = '权限名称'
 t.permission.description = '权限描述'
+t.permission.createTime = '创建时间'
+t.permission.type = '权限类型'
 
 export default t
