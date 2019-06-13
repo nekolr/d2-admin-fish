@@ -221,5 +221,8 @@ t.permission.name = '权限名称'
 t.permission.description = '权限描述'
 t.permission.createTime = '创建时间'
 t.permission.type = '权限类型'
+t.permission.parent = '上级权限'
+t.permission.sort = '排序'
+t.permission.parentNameDefault = '一级权限'
 
 export default t

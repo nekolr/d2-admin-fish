@@ -222,5 +222,8 @@ t.permission.name = 'Permission Name'
 t.permission.description = 'Permission Description'
 t.permission.createTime = 'Create Time'
 t.permission.type = 'Permission Type'
+t.permission.parent = 'Permission Parent'
+t.permission.sort = 'sort'
+t.permission.parentNameDefault = 'Top permission'
 
 export default t
