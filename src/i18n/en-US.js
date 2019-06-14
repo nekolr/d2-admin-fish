@@ -3,8 +3,8 @@ const t = {}
 t.loading = 'Loading...'
 
 t.brand = {}
-t.brand.lg = 'Renren Security'
-t.brand.mini = 'RS'
+t.brand.lg = 'D2Admin Fish'
+t.brand.mini = 'Fish'
 
 t.add = 'Add'
 t.delete = 'Delete'
@@ -31,11 +31,6 @@ t.message.logoutCancel = 'Abandoning logout users'
 t.validate = {}
 t.validate.required = 'Required field cannot be empty'
 t.validate.format = '{attr} format error'
-
-t.upload = {}
-t.upload.text = 'Drop files here, or <em>Click Upload</em>'
-t.upload.tip = 'Only support {format} format files! '
-t.upload.button = 'Click to upload'
 
 t.datePicker = {}
 t.datePicker.range = 'To'
@@ -126,62 +121,35 @@ t.model.description = 'Description'
 
 t.dept = {}
 t.dept.name = 'Name'
+t.dept.description = 'Description'
+t.dept.createTime = 'Create Time'
+t.dept.status = 'Status'
+t.dept.status0 = 'Disabled'
+t.dept.status1 = 'Enabled'
 t.dept.parentName = 'Superior'
 t.dept.sort = 'Sort'
 t.dept.parentNameDefault = 'Top Department'
 
-t.logError = {}
-t.logError.requestUri = 'Request URI'
-t.logError.requestMethod = 'Request Method'
-t.logError.requestParams = 'Request Parameters'
-t.logError.ip = 'IP'
-t.logError.userAgent = 'User Agent'
-t.logError.createDate = 'Create Date'
-t.logError.errorInfo = 'Exception'
-
-t.logLogin = {}
-t.logLogin.creatorName = 'Username'
-t.logLogin.status = 'Status'
-t.logLogin.status0 = 'Failed'
-t.logLogin.status1 = 'Success'
-t.logLogin.status2 = 'Locked'
-t.logLogin.operation = 'User Action'
-t.logLogin.operation0 = 'Login'
-t.logLogin.operation1 = 'Exit'
-t.logLogin.ip = 'IP'
-t.logLogin.userAgent = 'User-Agent'
-t.logLogin.createDate = 'Create Date'
-
-t.logOperation = {}
-t.logOperation.status = 'Status'
-t.logOperation.status0 = 'Failed'
-t.logOperation.status1 = 'Success'
-t.logOperation.creatorName = 'Username'
-t.logOperation.operation = 'User Action'
-t.logOperation.requestUri = 'Request URI'
-t.logOperation.requestMethod = 'Request Mode'
-t.logOperation.requestParams = 'Request Parameters'
-t.logOperation.requestTime = 'Request Duration'
-t.logOperation.ip = 'IP'
-t.logOperation.userAgent = 'User-Agent'
-t.logOperation.createDate = 'Create Date'
+t.job = {}
+t.job.name = 'Name'
+t.job.description = 'Description'
+t.job.createTime = 'Create Time'
+t.job.status = 'Status'
+t.job.status0 = 'Disabled'
+t.job.status1 = 'Enabled'
+t.job.sort = 'Sort'
+t.job.department = 'Department'
 
 t.menu = {}
 t.menu.name = 'Name'
 t.menu.icon = 'Icon'
-t.menu.type = 'Type'
-t.menu.type0 = 'Menu'
-t.menu.type1 = 'Button'
+t.menu.linkType = 'Link Type'
+t.menu.linkType0 = 'Route'
+t.menu.linkType1 = 'Outside Link'
 t.menu.sort = 'Sort'
-t.menu.url = 'Route'
-t.menu.permissions = 'Auth ID'
-t.menu.permissionsTips = 'Multiple separated by commas, such as: sys:menu:save,sys:menu:update'
+t.menu.url = 'Link'
 t.menu.parentName = 'Superior'
 t.menu.parentNameDefault = 'Top Menu'
-t.menu.resource = 'Auth Resources'
-t.menu.resourceUrl = 'Resource URL'
-t.menu.resourceMethod = 'Request Method'
-t.menu.resourceAddItem = 'Add an Item'
 
 t.params = {}
 t.params.paramCode = 'Code'

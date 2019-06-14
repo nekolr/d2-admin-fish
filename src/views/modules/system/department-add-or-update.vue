@@ -1,31 +1,37 @@
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
-      <el-form-item prop="name" :label="$t('permission.name')">
-        <el-input v-model="dataForm.name" :placeholder="$t('permission.name')"/>
+      <el-form-item prop="name" :label="$t('dept.name')">
+        <el-input v-model="dataForm.name" :placeholder="$t('dept.name')"/>
       </el-form-item>
-      <el-form-item prop="parentName" :label="$t('permission.parent')" class="menu-list">
-        <el-popover v-model="permissionListVisible" ref="permissionListPopover" placement="bottom-start" trigger="click">
+      <el-form-item prop="parentName" :label="$t('dept.parentName')" class="menu-list">
+        <el-popover v-model="deptListVisible" ref="deptListPopover" placement="bottom-start" trigger="click">
           <el-tree
-            :data="permissionList"
+            :data="deptList"
             :props="{ label: 'name', children: 'children' }"
             node-key="id"
-            ref="permissionListTree"
+            ref="deptListTree"
             :highlight-current="true"
             :expand-on-click-node="false"
             accordion
-            @current-change="permissionListTreeCurrentChangeHandle">
+            @current-change="deptListTreeCurrentChangeHandle">
           </el-tree>
         </el-popover>
-        <el-input v-model="dataForm.parentName" v-popover:permissionListPopover :readonly="true" :placeholder="$t('permission.parent')">
-          <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="deptListTreeSetDefaultHandle()" class="el-icon-circle-close el-input__icon"/>
+        <el-input v-model="dataForm.parentName" v-popover:deptListPopover :readonly="true" :placeholder="$t('dept.parentName')">
+          <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="departmentListTreeSetDefaultHandle()" class="el-icon-circle-close el-input__icon"/>
         </el-input>
       </el-form-item>
-      <el-form-item prop="description" :label="$t('permission.description')">
-        <el-input v-model="dataForm.description" :placeholder="$t('permission.description')"/>
+      <el-form-item prop="description" :label="$t('dept.description')">
+        <el-input v-model="dataForm.description" :placeholder="$t('dept.description')"/>
       </el-form-item>
-      <el-form-item prop="sort" :label="$t('permission.sort')">
-        <el-input-number v-model="dataForm.sort" controls-position="right" :min="0" :label="$t('permission.sort')"/>
+      <el-form-item prop="enabled" :label="$t('dept.status')" size="mini">
+        <el-radio-group v-model="dataForm.enabled">
+          <el-radio :label="true">{{ $t('dept.status1') }}</el-radio>
+          <el-radio :label="false">{{ $t('dept.status0') }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item prop="sort" :label="$t('dept.sort')">
+        <el-input-number v-model="dataForm.sort" controls-position="right" :min="0" :label="$t('dept.sort')"/>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -41,14 +47,15 @@ export default {
     return {
       loading: false,
       visible: false,
-      permissionList: [],
-      permissionListVisible: false,
+      deptList: [],
+      deptListVisible: false,
       dataForm: {
         id: '',
         name: '',
         pid: '0',
         parentName: '',
         description: '',
+        enabled: true,
         createTime: '',
         sort: 0
       }
@@ -71,45 +78,45 @@ export default {
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
-        this.dataForm.parentName = this.$t('permission.parentNameDefault')
-        this.getPermissionList().then(() => {
+        this.dataForm.parentName = this.$t('dept.parentNameDefault')
+        this.getDeptList().then(() => {
           if (this.dataForm.id) {
             this.getInfo()
           }
         })
       })
     },
-    // 获取权限列表
-    getPermissionList () {
-      return this.$axios.get('/api/permissions').then(res => {
-        this.permissionList = res
+    // 获取菜单列表
+    getDeptList () {
+      return this.$axios.get('/api/departments').then(res => {
+        this.deptList = res
       }).catch(() => {})
     },
     // 获取信息
     getInfo () {
-      this.$axios.get(`/api/permissions/${this.dataForm.id}`).then(res => {
+      this.$axios.get(`/api/departments/${this.dataForm.id}`).then(res => {
         this.dataForm = {
           ...this.dataForm,
           ...res
         }
         if (this.dataForm.pid === '0') {
-          return this.permissionListTreeSetDefaultHandle()
+          return this.departmentListTreeSetDefaultHandle()
         }
-        this.$refs.permissionListTree.setCurrentKey(this.dataForm.pid)
+        this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
         // 设置当前父节点的名称
-        this.dataForm.parentName = this.$refs.permissionListTree.getCurrentNode().name
+        this.dataForm.parentName = this.$refs.deptListTree.getCurrentNode().name
       }).catch(() => {})
     },
-    // 上级权限树, 设置默认值
-    permissionListTreeSetDefaultHandle () {
+    // 上级树, 设置默认值
+    departmentListTreeSetDefaultHandle () {
       this.dataForm.pid = '0'
-      this.dataForm.parentName = this.$t('permission.parentNameDefault')
+      this.dataForm.parentName = this.$t('dept.parentNameDefault')
     },
-    // 上级权限树, 选中
-    permissionListTreeCurrentChangeHandle (data) {
+    // 上级树, 选中
+    deptListTreeCurrentChangeHandle (data) {
       this.dataForm.pid = data.id
       this.dataForm.parentName = data.name
-      this.permissionListVisible = false
+      this.deptListVisible = false
     },
     // 表单提交
     dataFormSubmitHandle () {
@@ -120,7 +127,7 @@ export default {
           this.loading = false
           return false
         }
-        this.$axios[!this.dataForm.id ? 'post' : 'put']('/api/permissions', this.dataForm).then(res => {
+        this.$axios[!this.dataForm.id ? 'post' : 'put']('/api/departments', this.dataForm).then(res => {
           this.loading = false
           this.$message({
             message: this.$t('prompt.success'),
