@@ -15,7 +15,7 @@
           <el-form-item size="mini" :label="$t('role.menuList')">
             <el-tree
               :data="menuList"
-              :props="{ label: 'name', children: 'children', disabled: function(data, node) { /*TODO: 当是 ADMIN 时禁止操作 */ } }"
+              :props="{ label: 'name', children: 'children', disabled: function(data, node) { return isAdmin() } }"
               node-key="id"
               ref="menuListTree"
               accordion
@@ -27,7 +27,7 @@
           <el-form-item size="mini" :label="$t('role.permissionList')">
             <el-tree
               :data="permissionList"
-              :props="{ label: 'name', children: 'children' }"
+              :props="{ label: 'name', children: 'children', disabled: function(data, node) { return isAdmin() } }"
               node-key="id"
               ref="permissionListTree"
               accordion
@@ -145,7 +145,8 @@ export default {
     },
     // 判断是否是 ADMIN 角色
     isAdmin () {
-      if (this.dataForm.id === 1) {
+      var self = this
+      if (self.dataForm.id === 1) {
         return true
       }
     }
