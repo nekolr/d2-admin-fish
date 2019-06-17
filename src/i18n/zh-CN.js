@@ -157,10 +157,11 @@ t.params.remark = '备注'
 
 t.role = {}
 t.role.name = '名称'
-t.role.remark = '备注'
-t.role.createDate = '创建时间'
+t.role.description = '描述'
+t.role.createTime = '创建时间'
 t.role.menuList = '菜单授权'
-t.role.deptList = '数据授权'
+t.role.permissionList = '权限授权'
+t.role.sort = '排序'
 
 t.user = {}
 t.user.username = '用户名'

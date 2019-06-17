@@ -158,10 +158,11 @@ t.params.remark = 'Remarks'
 
 t.role = {}
 t.role.name = 'Name'
-t.role.remark = 'Remarks'
-t.role.createDate = 'Create Date'
+t.role.description = 'Description'
+t.role.createTime = 'Create Time'
 t.role.menuList = 'Menu Scope'
-t.role.deptList = 'Data Scope'
+t.role.permissionList = 'Permission Scope'
+t.role.sort = 'Sort'
 
 t.user = {}
 t.user.username = 'Username'
