@@ -16,6 +16,8 @@ d2-admin-fish 是 [fish](https://github.com/nekolr/fish) 的前端项目，基�
 $ npm install nrm -g
 # use taobao registry
 $ nrm use taobao
+# install dependencies
+$ npm install
 # serve with hot reload at localhost:8080
 $ npm run dev
 # build
